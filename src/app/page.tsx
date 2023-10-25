@@ -1,12 +1,11 @@
-import Image from 'next/image'
-import axios from 'axios'
+import SalesTable from "@/components/SalesTable"
 
 export default function Home() {
-  
+
   return (
-    <div>
+    <div className="font-poppins">
       <h1>Home</h1>
-      <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+      <SalesTable />
     </div>
   )
 }
