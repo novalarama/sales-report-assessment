@@ -40,32 +40,18 @@ export default function Home() {
   });
 
   const handleFilterChange = (startDate: Date, finishDate: Date | null) => {
-    console.log('11111--------');
-    console.log(salesData);
-
     const filteredData = salesData.filter((sale) => {
       const saleDate = dayjs(sale.date);
       if (finishDate !== null) {
         if (finishDate !== startDate) {
-          console.log('masuk 1');
           return saleDate.isAfter(startDate) && saleDate.isBefore(finishDate);
         } else {
-          console.log('masuk 2');
           return saleDate.isSame(startDate);
         }
       } else {
-        console.log('masuk 3');
         return saleDate.isAfter(startDate);
       }
     });
-    console.log('22222--------');
-    
-    console.log(filteredData);
-    console.log(startDate);
-    console.log(finishDate);
-
-
-
     setSalesData(filteredData);
   };
 
