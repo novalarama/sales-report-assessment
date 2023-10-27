@@ -31,8 +31,8 @@ export default function Home() {
   const sortedUniqueDates = uniqueDates.sort(
     (a, b) => dayjs(a).unix() - dayjs(b).unix()
   );
-  const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD');
-  const formattedFinishDate = finishDate ? dayjs(finishDate).format('YYYY-MM-DD') : '';
+  let formattedStartDate = dayjs(startDate).format('YYYY-MM-DD');
+  let formattedFinishDate = finishDate ? dayjs(finishDate).format('YYYY-MM-DD') : '';
 
   const formattedDates = sortedUniqueDates.map((date) => {
     const formattedDate = dayjs(date).format('DD MMMM YYYY');
@@ -40,17 +40,31 @@ export default function Home() {
   });
 
   const handleFilterChange = (startDate: Date, finishDate: Date | null) => {
-    setStartDate(startDate);
-    setFinishDate(finishDate);
+    console.log('11111--------');
+    console.log(salesData);
 
     const filteredData = salesData.filter((sale) => {
       const saleDate = dayjs(sale.date);
-      if (finishDate) {
-        return saleDate.isAfter(startDate) && saleDate.isBefore(finishDate);
+      if (finishDate !== null) {
+        if (finishDate !== startDate) {
+          console.log('masuk 1');
+          return saleDate.isAfter(startDate) && saleDate.isBefore(finishDate);
+        } else {
+          console.log('masuk 2');
+          return saleDate.isSame(startDate);
+        }
       } else {
-        return saleDate.isSame(startDate, 'day');
+        console.log('masuk 3');
+        return saleDate.isAfter(startDate);
       }
     });
+    console.log('22222--------');
+    
+    console.log(filteredData);
+    console.log(startDate);
+    console.log(finishDate);
+
+
 
     setSalesData(filteredData);
   };
